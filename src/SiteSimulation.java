@@ -32,7 +32,6 @@ public class SiteSimulation {
             switch (userCommand) {
                 case "advance":
                 case "a":
-
                     CommandHistory.addCommand("advance " + numberOfStepsToAdvance);
                     if (numberOfStepsToAdvance == null || !numberOfStepsToAdvance.matches("\\d+")) {
                         System.out.println("The 'advance' command should be followed by a positive integer.");

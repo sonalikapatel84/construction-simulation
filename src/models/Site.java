@@ -46,10 +46,9 @@ public class Site {
                             System.out.println("char ch ->   " + ch);
                             throw new IllegalArgumentException("Invalid block type: " + (char)ch);
                     }
-//                    Position position = new Position(xCoord.getAndIncrement(), yCoord.get());
                     Position position = new Position(yCoord.get(), xCoord.getAndIncrement());
                     SquareBlock newBlock = new SquareBlock(position, blockType);
-                    newBlock.setCleared(false); // The block is initially not cleared
+                    newBlock.setCleared(false);
                     row.add(newBlock);
                 });
                 map.add(row);
@@ -57,7 +56,6 @@ public class Site {
             }
         );
     }
-
 
     /**
      * This method counts the number of uncleared squares in the map.
@@ -71,7 +69,6 @@ public class Site {
                 .count();
     }
 
-
     /**
      * Returns the models.SquareBlock at the specified position on the site map.
      *
@@ -82,7 +79,6 @@ public class Site {
     public SquareBlock getBlockAt(Position position) {
         return this.map.get(position.getX()).get(position.getY());
     }
-
 
     /**
      * Checks if a given position is out of bounds of the map.

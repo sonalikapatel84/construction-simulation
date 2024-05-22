@@ -12,19 +12,16 @@ public class BullDozer {
         this.currentDirection = initialDirection;
     }
 
-    public Direction getCurrentDirection() {
-        return this.currentDirection;
-    }
-    public Position getCurrentPosition() {
-        return this.currentPosition;
-    }
-
-    public void setCurrentDirection(Direction currentDirection) {
-        this.currentDirection = currentDirection;
-    }
     public void setCurrentPosition(Position currentPosition) {
         this.currentPosition = currentPosition;
     }
+    /**
+     * Calculates the potential position of the bulldozer after advancing a certain number of steps.
+     *
+     * @param steps The number of steps to advance the bulldozer.
+     * @return A Position object representing the potential position of the bulldozer.
+     * @throws IllegalArgumentException if an invalid direction is encountered.
+     */
     public Position calculatePotentialPosition(int steps) {
         switch (this.currentDirection) {
             case NORTH:
@@ -40,6 +37,15 @@ public class BullDozer {
         }
     }
 
+    /**
+     * Advances the bulldozer by the given number of steps.
+     *
+     * @param stepsToAdvance The number of steps to advance the bulldozer.
+     * @param site The site on which the bulldozer is operating.
+     * @param reportManager The report manager to track fuel usage and other costs.
+     * @throws IllegalStateException if the bulldozer is out of site boundaries and cannot move further.
+     * @throws IllegalArgumentException if an invalid block type is encountered.
+     */
     public void advance(int stepsToAdvance, Site site, ReportManager reportManager) {
         Position potentialPosition = calculatePotentialPosition(stepsToAdvance);
         if (site.isOutOfBound(potentialPosition)) {
@@ -49,13 +55,8 @@ public class BullDozer {
         //Now bulldozer is all set to "advance" , hence the below calc
         for(int i=0; i<stepsToAdvance; i++) {
 
-            System.out.printf("This is the %s step of %s steps \n", i, stepsToAdvance);
             Position oneStepAdvance = calculatePotentialPosition(1);
             this.setCurrentPosition((oneStepAdvance));
-            System.out.printf("Current position of bulldozer %s, %s, %s \n",
-                    this.getCurrentPosition().getX(),
-                    this.getCurrentPosition().getY(),
-                    this.getCurrentDirection());
 
             // Grabbing the square block at the new position
             SquareBlock squareBlock = site.getBlockAt(oneStepAdvance);
@@ -65,17 +66,14 @@ public class BullDozer {
             } else {
                 switch (squareBlock.getBlockType()) {
                     case PLAIN:
-                        System.out.println("Sqaure Block with PLAIN.");
                         reportManager.addFuelUsage(1);
                         squareBlock.setCleared(true);
                         break;
                     case ROCKY:
-                        System.out.println("Sqaure Block with ROCKY.");
                         reportManager.addFuelUsage(2);
                         squareBlock.setCleared(true);
                         break;
                     case TREE:
-                        System.out.println("Sqaure Block with TREE.");
                         reportManager.addFuelUsage(2);
                         squareBlock.setCleared(true);
                         if (i != stepsToAdvance-1) { // The last step, ie bulldozer will stop.
@@ -83,7 +81,6 @@ public class BullDozer {
                         }
                         break;
                     case PRESERVED_TREE:
-                        System.out.println("Sqaure Block with PRESERVED TREE.");
                         reportManager.incrementProtectedTreeDestruction();
                         System.out.println("Attempt to remove a protected tree. Exiting game.");
                         HelperClass.exit(site, reportManager);
@@ -96,9 +93,15 @@ public class BullDozer {
         }
     }
 
+    /**
+     * Turns the bulldozer to the left by changing its current direction.
+     */
     public void turnLeft() {
         this.currentDirection = this.currentDirection.turnLeft();
     }
+    /**
+     * Turns the bulldozer to the right by changing its current direction.
+     */
     public void turnRight() {
         this.currentDirection = this.currentDirection.turnRight();
     }

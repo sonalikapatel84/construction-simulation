@@ -38,9 +38,5 @@ public class SquareBlock {
         BlockType(int fuelToClear) {
             this.fuelToClear = fuelToClear;
         }
-
-        public int getFuelToClear() {
-            return fuelToClear;
-        }
     }
 }
