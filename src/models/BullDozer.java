@@ -15,6 +15,10 @@ public class BullDozer {
     public void setCurrentPosition(Position currentPosition) {
         this.currentPosition = currentPosition;
     }
+
+    public Position getCurrentPosition() {
+        return this.currentPosition;
+    }
     /**
      * Calculates the potential position of the bulldozer after advancing a certain number of steps.
      *

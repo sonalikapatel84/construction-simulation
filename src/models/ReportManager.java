@@ -67,4 +67,16 @@ public class ReportManager {
         System.out.format("Thank you for using the Aconex site clearing simulator");
 
     }
+
+    public int getFuelUsage() {
+        return reportItems.get("fuel usage");
+    }
+
+    public int getPaintDamageCount() {
+        return reportItems.get("paint damage to bulldozer");
+    }
+
+    public int getProtectedTreeDestructionCount() {
+        return reportItems.get("destruction of protected tree");
+    }
 }
